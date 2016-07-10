@@ -1,0 +1,48 @@
+{
+  "name": "Japritz",
+  "version": "2.0",
+  "manifest_version": 2,
+  "description": "Split Japanese Sentences - Powered By kuromoji",
+  "browser_action": {
+    "default_icon": "icon.png",
+    "name": "Click!"
+  },
+  "permissions": [
+    "contextMenus",
+    "storage"
+  ],
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "content_scripts": [{
+    "matches": ["http://*/*", "https://*/*"],
+    "js": [
+      "lib/jquery-2.0.3.js",
+      "lib/jquery.selection.js",
+      "lib/queue.js",
+      "lib/kuromoji.js",
+      "japritz.js"
+    ],
+    "css": ["css/japritz.css"]
+  }],
+  "web_accessible_resources": [
+    "lib/dict/*.dat.gz"
+  ],
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "windows": "Ctrl+Shift+K",
+        "mac": "Command+Shift+K",
+        "chromeos": "Ctrl+Shift+K",
+        "linux": "Ctrl+Shift+K"
+      }
+    }
+  },
+  "options_page": "options/options.html"
+}
