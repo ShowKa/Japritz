@@ -5,9 +5,9 @@
 chrome プラグインです。
 
 ## 使い方
-1. chrome に　Japritzを インストール
-1. 文章を選択。
-1. ハサミアイコンをクリック。
+1. chromeにJapritzをインストールします。
+1. Webページ上で文章を選択。
+1. はさみのアイコンをクリック。
 
 ## ライセンス
 licensed under the Apache License v2.0 and uses Kuromojim, jQuery, jQuery.selection
