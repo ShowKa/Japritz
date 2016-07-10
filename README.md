@@ -10,4 +10,4 @@ chrome プラグインです。
 1. はさみのアイコンをクリック。
 
 ## ライセンス
-licensed under the Apache License v2.0 and uses Kuromojim, jQuery, jQuery.selection
+licensed under the Apache License v2.0 and uses [Kuromoji](http://www.atilika.org/), [jQuery](https://jquery.com/), [jQuery.selection](http://blog.madapaja.net/)
