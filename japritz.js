@@ -100,8 +100,6 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             // 括弧開きが発生したか否か
             var pStart = false;
 
-            console.log(tokenized);
-
             $.each(tokenized, function(i, chunk) {
                 var surface = chunk.surface_form;
                 dispText += surface;
