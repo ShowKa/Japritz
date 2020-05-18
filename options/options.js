@@ -20,7 +20,14 @@ function restore_options() {
         speed: 350
     }, function(items) {
         document.getElementById('speed').value = items.speed;
+        show_speed();
     });
 }
+
+function show_speed() {
+    document.getElementById('speed_meter').innerHTML = document.getElementById('speed').value;
+}
+
 document.addEventListener('DOMContentLoaded', restore_options);
 document.getElementById('save').addEventListener('click', save_options);
+document.getElementById('speed').addEventListener('change', show_speed);

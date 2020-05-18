@@ -66,21 +66,10 @@
     
     .form-control {
         display: block;
-        width: 100%;
+        width: 450px;
         height: 34px;
         padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.42857143;
-        color: #555;
-        background-color: #fff;
-        background-image: none;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        direction: rtl;
     }
     
     .btn-default {
@@ -95,18 +84,11 @@
     <div class="bs-example" data-example-id="basic-forms">
         <div class="form-group">
             <label for="speed">speed</label>
-            <select type="textbox" class="form-control" id="speed">
-                <option value="550">tortoise</option>
-                <option value="500">easy</option>
-                <option value="450">very slow</option>
-                <option value="400">slow</option>
-                <option value="350">normal</option>
-                <option value="300">fast</option>
-                <option value="250">very fast</option>
-                <option value="200">hard</option>
-                <option value="150">legend</option>
-                <option value="100">master</option>
-            </select>
+            <div style="display:inline-block;">
+                <input type="range" min="50" max="650" step="10" class="form-control" id="speed" />
+            </div>
+            <div style="display:inline-block; width: 50px;" id="speed_meter">
+            </div>
         </div>
         <div class="form-group">
             <button id="save" class="btn-default">Save</button>
