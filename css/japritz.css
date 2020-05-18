@@ -1,4 +1,4 @@
-.japritzContainer {
+#japritzContainer {
     background: #fff;
     box-shadow: 0 3px 10px #222;
     color: #000;
@@ -22,7 +22,7 @@
     box-sizing: content-box;
 }
 
-.japritzClose {
+#japritzClose {
     color: #888;
     cursor: pointer;
     position: absolute;
@@ -32,6 +32,6 @@
     font-family: sans-serif;
 }
 
-.japritzClose:hover {
+#japritzClose:hover {
     color: #111;
 }

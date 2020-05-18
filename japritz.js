@@ -42,9 +42,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     var interval;
 
     // make box
-    var $container = $("<div>").addClass("japritzContainer");
-    var $box = $("<div>").addClass("japritzBox").text("Start Japritz");
-    var $close = $("<div>").addClass("japritzClose").text("×");
+    var $container = $("<div>").attr("id", "japritzContainer");
+    var $box = $("<div>").text("Start Japritz");
+    var $close = $("<div>").attr("id", "japritzClose").text("×");
 
     function japritz() {
 
