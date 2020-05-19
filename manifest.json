@@ -29,6 +29,7 @@
       "lib/kuromoji.min.js",
       "japritz/speed.js",
       "japritz/word.js",
+      "japritz/tokenizer.js",
       "japritz.js"
     ],
     "css": ["css/japritz.css"]
