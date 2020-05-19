@@ -1,10 +1,3 @@
-// options
-var speed;
-var ret = chrome.storage.sync.get({
-    speed: 350
-}, function(items) {
-    speed = items.speed;
-});
 
 var dictUrl = chrome.extension.getURL("lib/dict/");
 
@@ -18,7 +11,6 @@ var conjunction = "接続詞";
 var verb = "動詞";
 //var auxiliaryVerb = "助動詞";
 var noun = "名詞";
-var number = "数";
 var prefix = "接頭詞";
 var adverb = "副詞";
 var adjective = "形容詞";
@@ -28,6 +20,8 @@ var continuous = "連用形";
 var intransitive = [conjunction, verb, noun, adverb, prefix, adjective, determiner];
 // 括弧開
 var parenthesisStart = ["[", "(", "（", "「"];
+// 数
+var number = "数";
 
 var tokenizer;
 kuromoji.builder({ dicPath: dictUrl }).build(function(err, _tokenizer) {

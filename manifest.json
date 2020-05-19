@@ -27,6 +27,7 @@
       "lib/jquery.selection.min.js",
       "lib/queue.min.js",
       "lib/kuromoji.min.js",
+      "speed.js",
       "japritz.js"
     ],
     "css": ["css/japritz.css"]
