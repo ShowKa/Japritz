@@ -4,9 +4,9 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     var end = false;
     var interval;
     // make box
-    var $container = $("<div>").attr("id", "japritzContainer");
-    var $box = $("<div>").text("Start Japritz");
-    var $close = $("<div>").attr("id", "japritzClose").text("×");
+    const $container = $("<div>").attr("id", "japritzContainer");
+    const $box = $("<div>").text("Start Japritz");
+    const $close = $("<div>").attr("id", "japritzClose").text("×");
     // functions
     function display() {
         if (sharedQ.size() > 0) {
@@ -37,32 +37,15 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
         delete sharedQ, interval, end, $container, $box, $close;
     }
     // main
-    var section = $.selection().replace(/\s/g, " ").trim().replace(/\s\s+/g, " ").split(/[。　\s]/);
-    for (var i = 0; i < section.length; i++) {
-        // 空白除去
-        if (section[i].length == 0) {
-            section.splice(i, 1);
-            // 配列が１つ減るのでindexをカウントダウン
-            --i;
-            // FIXME "—"の文字コードは？
-        } else if (section[i].match(/[^\x20-\x7E—]+[\x20-\x7E]+$/)) {
-            // 英数字で終わる場合は、1つ後の配列と統合
-            if (section[i + 1]) {
-                section[i] = section[i] + " " + section[i + 1];
-                section.splice(i + 1, 1);
-                // 連結後配列（自分自身）をもう一度調べるために、カウントダウン
-                --i;
-            }
-        }
-    }
+    var sentences = new Sentences($.selection());
     var getWords = function (l) {
         // 半角英数字のみの場合は、APIアクセスは不要。
         // queueに文字列ぶっこんで、再帰呼び出し。
-        if (section[l].match(/^[\x20-\x7E]+$/)) {
-            sharedQ.enqueue(section[l]);
+        if (sentences.get(l).match(/^[\x20-\x7E]+$/)) {
+            sharedQ.enqueue(sentences.get(l));
             // ピリオドやクエスチョンで終わる場合は、文末とみなす
             // 文末の場合は、間を入れる。
-            if (section[l].match(/[.?!]$/)) {
+            if (sentences.get(l).match(/[.?!]$/)) {
                 sharedQ.enqueue("");
             }
             // 再帰呼び出し
@@ -70,7 +53,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
             return;
         }
         // 置換。
-        var sentence = section[l].replace(/、/g, comma);
+        var sentence = sentences.get(l).replace(/、/g, comma);
         // ピリオドで文章を終わらせる。
         sentence += period;
         // tokenize
@@ -152,7 +135,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     });
     // 再帰呼び出し
     function recrusive(l) {
-        if (l < section.length - 1) {
+        if (l < sentences.size() - 1) {
             getWords(l + 1);
         } else {
             end = true;

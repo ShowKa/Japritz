@@ -30,6 +30,7 @@
       "japritz/speed.js",
       "japritz/word.js",
       "japritz/tokenizer.js",
+      "japritz/sentences.js",
       "japritz.js"
     ],
     "css": ["css/japritz.css"]
