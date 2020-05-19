@@ -22,7 +22,7 @@ class Sentences {
         this._sentences = sentences;
     }
     get(i) {
-        return this._sentences[i];
+        return new Sentence(this._sentences[i]);
     }
     size() {
         return this._sentences.length;

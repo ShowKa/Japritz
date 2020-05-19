@@ -41,23 +41,20 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     var getWords = function (l) {
         // 半角英数字のみの場合は、APIアクセスは不要。
         // queueに文字列ぶっこんで、再帰呼び出し。
-        if (sentences.get(l).match(/^[\x20-\x7E]+$/)) {
-            sharedQ.enqueue(sentences.get(l));
+        const sentence = sentences.get(l);
+        if (sentence.isAlphaNumeric()) {
+            sharedQ.enqueue(sentence.toString());
             // ピリオドやクエスチョンで終わる場合は、文末とみなす
             // 文末の場合は、間を入れる。
-            if (sentences.get(l).match(/[.?!]$/)) {
+            if (sentence.isEnd()) {
                 sharedQ.enqueue("");
             }
             // 再帰呼び出し
             recrusive(l);
             return;
         }
-        // 置換。
-        var sentence = sentences.get(l).replace(/、/g, comma);
-        // ピリオドで文章を終わらせる。
-        sentence += period;
         // tokenize
-        var tokenized = tokenizer.tokenize(sentence);
+        var tokenized = tokenizer.tokenize(sentence.toString());
         var dispText = "";
         var added = false;
         // 括弧開きが発生したか否か
