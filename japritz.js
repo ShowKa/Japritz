@@ -54,64 +54,12 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
             return;
         }
         // tokenize
-        var tokenized = tokenizer.tokenize(sentence.toString());
-        var dispText = "";
-        var added = false;
-        // 括弧開きが発生したか否か
-        var pStart = false;
-        // token処理
-        $.each(tokenized, function (i, chunk) {
-            var surface = chunk.surface_form;
-            dispText += surface;
-            added = false;
-            // 括弧開きが発生した場合は、文節区切りをせず、次のchunkの判定にうつる。
-            if (pStart) {
-                pStart = false;
-                return true;
-            }
-            var nextChunk = null;
-            if ((i + 1) < tokenized.length) {
-                nextChunk = tokenized[i + 1];
-            }
-            // 句読点が来た場合は文節区切りとみなす。
-            if (isPunctuation(chunk)) {
-                // ただし、前後に数詞が来る場合は文節区切りしない。
-                if (nextChunk && (i > 0 && isNumber(tokenized[i - 1])) && isNumber(nextChunk)) {
-                    return true;
-                }
-                // 文節区切り！
-                sharedQ.enqueue(dispText);
-                dispText = "";
-                added = true;
-                return true;
-            }
-            // 次に括弧開が来る場合も文節区切り
-            if (nextChunk && $.inArray(nextChunk.surface_form, parenthesisStart) >= 0) {
-                // 文節区切り！
-                sharedQ.enqueue(dispText);
-                dispText = "";
-                added = true;
-                pStart = true;
-                return true;
-            }
-            // 次のchunkが自立語なら文節を区切る
-            if (nextChunk) {
-                if (isNoun(chunk) && isNoun(nextChunk)) {
-                    // 名詞は自立語だが、名詞が連続する場合は熟語とみなし、まだ文節区切りを行なわない
-                    return true;
-                }
-                if (isIntransitive(nextChunk)) {
-                    // 文節区切り！
-                    sharedQ.enqueue(dispText);
-                    dispText = "";
-                    added = true;
-                }
-            }
+        const kuromojiChunks = tokenizer.tokenize(sentence.toString());
+        const chunks = new Chunks(kuromojiChunks.map(c => new Chunk(c)));
+        const clauses = chunks.getClauses();
+        clauses.forEach(c => {
+            sharedQ.enqueue(c.toString())
         });
-        if (!added) {
-            sharedQ.enqueue(dispText);
-            dispText = "";
-        }
         // 文章に間を設ける
         sharedQ.enqueue("");
         // 再帰呼出し    

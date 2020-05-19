@@ -32,6 +32,9 @@
       "japritz/tokenizer.js",
       "japritz/sentence.js",
       "japritz/sentences.js",
+      "japritz/chunk.js",
+      "japritz/clause.js",
+      "japritz/chunks.js",
       "japritz.js"
     ],
     "css": ["css/japritz.css"]
