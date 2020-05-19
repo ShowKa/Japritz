@@ -1,28 +1,4 @@
-
 var dictUrl = chrome.extension.getURL("lib/dict/");
-
-// 句読点
-var comma = ",";
-var period = ".";
-var punctuation = [comma, period];
-
-// 詞
-var conjunction = "接続詞";
-var verb = "動詞";
-//var auxiliaryVerb = "助動詞";
-var noun = "名詞";
-var prefix = "接頭詞";
-var adverb = "副詞";
-var adjective = "形容詞";
-var determiner = "連体詞";
-var continuous = "連用形";
-// 自立語
-var intransitive = [conjunction, verb, noun, adverb, prefix, adjective, determiner];
-// 括弧開
-var parenthesisStart = ["[", "(", "（", "「"];
-// 数
-var number = "数";
-
 var tokenizer;
 kuromoji.builder({ dicPath: dictUrl }).build(function(err, _tokenizer) {
     tokenizer = _tokenizer;
@@ -186,58 +162,6 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
                 end = true;
             }
         }
-    }
-
-    // 句読点か否か
-    function isPunctuation(chunk) {
-        if ($.inArray(chunk.surface_form, punctuation) >= 0) {
-            return true;
-        }
-        return false;
-    }
-    // 数詞であるか否か
-    function isNumber(chunk) {
-        if (chunk.pos == noun && chunk.pos_detail_1 == number) {
-            return true;
-        }
-        return false;
-    }
-    // 名詞か否か
-    function isNoun(chunk) {
-        // 名詞だけでなく接頭詞も名詞とみなす。
-        if ($.inArray(chunk.pos, [noun, prefix]) >= 0) {
-            return true;
-        }
-        return false;
-    }
-
-    // 自立語であるか否か
-    function isIntransitive (chunk) {
-        // 自立語である。
-        if ($.inArray(chunk.pos, intransitive) >= 0) {
-
-            if (chunk.pos_detail_1 == "自立") {
-                return true;
-            }
-
-            // 名詞や動詞でも非自立の場合は、自立語とはみなさない
-            if (chunk.pos_detail_1 == "非自立") {
-                return false;
-            }
-
-            // 句読点の場合も自立語ではない（句読点も名詞として定義されている）
-            if (isPunctuation(chunk)) {
-                return false;
-            }
-
-            // 動詞でも、連用形の場合は自立語とはみなさない。
-            if (chunk.pos == verb && chunk.conjugated_form == continuous) {
-                return false;
-            }
-
-            return true;
-        }
-        return false;
     }
 
     function display() {
