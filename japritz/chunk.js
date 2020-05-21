@@ -13,6 +13,9 @@ class Chunk {
     isNoun() {
         return this._chunk.pos === "名詞" && !this.isPunctuation();
     }
+    isVerb() {
+        return this._chunk.pos === "動詞";
+    }
     isNounNumber() {
         return this.isNoun() && this._chunk.pos_detail_1 == "数";
     }
@@ -21,6 +24,9 @@ class Chunk {
     }
     isConjunction() {
         return this._chunk.pos === "接続詞";
+    }
+    isPrefix() {
+        return this._chunk.pos === "接頭詞";
     }
     isAdverb() {
         return this._chunk.pos === "副詞";
@@ -31,6 +37,9 @@ class Chunk {
     isAuxiliaryVerb() {
         return this._chunk.pos === "助動詞";
     }
+    isAdjective() {
+        return this._chunk.pos === "形容詞";
+    }
     isLastOfClause() {
         return this.isPostpositional()
             || this.isConjunction()
@@ -38,5 +47,14 @@ class Chunk {
             || this.isDeterminer()
             || this.isAuxiliaryVerb()
             || this.isPunctuation();
+    }
+    isIntransitive() {
+        return this.isConjunction()
+            || this.isVerb()
+            || this.isNoun()
+            || this.isAdverb()
+            || this.isPrefix()
+            || this.isAdjective()
+            || this.isDeterminer()
     }
 }
