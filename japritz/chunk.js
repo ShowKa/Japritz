@@ -1,6 +1,7 @@
 class Chunk {
     constructor(kuromojiChunk) {
-        console.log(kuromojiChunk.surface_form + ":" + kuromojiChunk.pos);
+        // console.log(kuromojiChunk.surface_form + ":" + kuromojiChunk.pos + ":" + kuromojiChunk.pos_detail_1);
+        console.log(kuromojiChunk);
         this._chunk = kuromojiChunk;
     }
     getSurface() {
@@ -8,13 +9,16 @@ class Chunk {
     }
     isPunctuation() {
         const s = this.getSurface();
-        return $.inArray(s, [",", ".", "、", "。"]) >= 0;
+        return $.inArray(s, [",", ".", "、", "。", "/"]) >= 0;
     }
     isNoun() {
         return this._chunk.pos === "名詞" && !this.isPunctuation();
     }
     isVerb() {
         return this._chunk.pos === "動詞";
+    }
+    isVerbSuffix() {
+        return this.isVerb() && this._chunk.pos_detail_1 === "接尾";
     }
     isNounNumber() {
         return this.isNoun() && this._chunk.pos_detail_1 == "数";
@@ -55,6 +59,6 @@ class Chunk {
             || this.isAdverb()
             || this.isPrefix()
             || this.isAdjective()
-            || this.isDeterminer()
+            || this.isDeterminer();
     }
 }
