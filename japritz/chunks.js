@@ -31,6 +31,11 @@ class Chunks {
             if ((chunk.isNoun() || chunk.isPrefix()) && next.isNoun()) {
                 continue;
             }
+            // 接頭詞 + 動詞の場合も、文節は区切らない。
+            // 例：お読みに...
+            if (chunk.isPrefix() && next.isVerb()) {
+                continue;
+            }
             // 開き括弧の場合、文節を区切らず次の語とマージする
             if (chunk.isParenthesisStart()) {
                 continue;
@@ -56,6 +61,7 @@ class Chunks {
             if (!separateClause && next.isStartOfClause()) {
                 separateClause = true;
             }
+            // 文節区切
             if (separateClause) {
                 clauses.push(new Clause(clauseElements));
                 clauseElements = [];
