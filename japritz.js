@@ -54,7 +54,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
             return;
         }
         // tokenize
-        const kuromojiChunks = tokenizer.tokenize(sentence.toString());
+        const kuromojiChunks = tokenizer.tokenize(sentence.toString() + ".");
         const chunks = new Chunks(kuromojiChunks.map(c => new Chunk(c)));
         const clauses = chunks.getClauses();
         clauses.forEach(c => {
