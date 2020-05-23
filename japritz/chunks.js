@@ -31,7 +31,7 @@ class Chunks {
             if ((chunk.isNoun() || chunk.isPrefix()) && next.isNoun()) {
                 continue;
             }
-            // 開括弧の場合、文節を区切らず次の語とマージする
+            // 開き括弧の場合、文節を区切らず次の語とマージする
             if (chunk.isParenthesisStart()) {
                 continue;
             }
@@ -48,7 +48,7 @@ class Chunks {
                 // 上記以外の場合、文節を切る。
                 separateClause = true;
             }
-            // 開括弧の場合、文節を区切る。
+            // 閉じ括弧の場合、文節を区切る。
             if (!separateClause && chunk.isParenthesisEnd()) {
                 separateClause = true;
             }

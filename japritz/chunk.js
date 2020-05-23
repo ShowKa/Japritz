@@ -54,6 +54,13 @@ class Chunk {
     isAdjective() {
         return this._chunk.pos === "形容詞";
     }
+    isAdjectiveVerb() {
+        // kuromojiに形容動詞はない
+        return false;
+    }
+    isInterjection() {
+        return this._chunk.pos === "感動詞";
+    }
     isLastOfClause() {
         return this.isPostpositional()
             || this.isConjunction()
@@ -72,6 +79,8 @@ class Chunk {
             || this.isAdverb()
             || this.isPrefix()
             || this.isAdjective()
-            || this.isDeterminer();
+            || this.isDeterminer()
+            || this.isAdjectiveVerb()
+            || this.isInterjection();
     }
 }
