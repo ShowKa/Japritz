@@ -12,6 +12,8 @@ class Chunks {
         const clauses = [];
         var clauseElements = [];
         for (var i = 0; i < this.size(); i++) {
+            // flag
+            var separateClause = false;
             // chunk
             const chunk = this.get(i);
             clauseElements.push(chunk);
@@ -29,6 +31,10 @@ class Chunks {
             if ((chunk.isNoun() || chunk.isPrefix()) && next.isNoun()) {
                 continue;
             }
+            // 開括弧の場合、文節を区切らず次の語とマージする
+            if (chunk.isParenthesisStart()) {
+                continue;
+            }
             // 接尾動詞が続く場合、文節は区切らない
             if (next.isVerbSuffix()) {
                 continue;
@@ -40,12 +46,17 @@ class Chunks {
                     continue;
                 }
                 // 上記以外の場合、文節を切る。
-                clauses.push(new Clause(clauseElements));
-                clauseElements = [];
-                continue;
+                separateClause = true;
+            }
+            // 開括弧の場合、文節を区切る。
+            if (!separateClause && chunk.isParenthesisEnd()) {
+                separateClause = true;
             }
             // 自立語が続く場合, 文節を切る。
-            if (next.isIntransitive()) {
+            if (!separateClause && next.isStartOfClause()) {
+                separateClause = true;
+            }
+            if (separateClause) {
                 clauses.push(new Clause(clauseElements));
                 clauseElements = [];
                 continue;

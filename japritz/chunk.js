@@ -9,7 +9,17 @@ class Chunk {
     }
     isPunctuation() {
         const s = this.getSurface();
-        return $.inArray(s, [",", ".", "、", "。", "/"]) >= 0;
+        return $.inArray(s, [",", "，", ".", "、", "。", "/"]) >= 0;
+    }
+    isParenthesisStart() {
+        const s = this.getSurface();
+        const parenthesisStart = ["[", "(", "（", "「"];
+        return $.inArray(s, parenthesisStart) >= 0;
+    }
+    isParenthesisEnd() {
+        const s = this.getSurface();
+        const parenthesisStart = ["]", "）", ")", "」"];
+        return $.inArray(s, parenthesisStart) >= 0;
     }
     isNoun() {
         return this._chunk.pos === "名詞" && !this.isPunctuation();
@@ -51,6 +61,9 @@ class Chunk {
             || this.isDeterminer()
             || this.isAuxiliaryVerb()
             || this.isPunctuation();
+    }
+    isStartOfClause() {
+        return this.isIntransitive() || this.isParenthesisStart();
     }
     isIntransitive() {
         return this.isConjunction()
