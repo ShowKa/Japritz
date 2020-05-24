@@ -31,7 +31,7 @@
       "japritz/word.js",
       "japritz/tokenizer.js",
       "japritz/sentence.js",
-      "japritz/sentences.js",
+      "japritz/Paragraphs.js",
       "japritz/chunk.js",
       "japritz/clause.js",
       "japritz/chunks.js",

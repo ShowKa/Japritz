@@ -37,16 +37,16 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
         delete sharedQ, interval, end, $container, $box, $close;
     }
     // main
-    var sentences = new Sentences($.selection());
+    var paragraphs = new Paragraphs($.selection());
     var getWords = function (l) {
         // 半角英数字のみの場合は、APIアクセスは不要。
         // queueに文字列ぶっこんで、再帰呼び出し。
-        const sentence = sentences.get(l);
-        if (sentence.isAlphaNumeric()) {
-            sharedQ.enqueue(sentence.toString());
+        const para = paragraphs.get(l);
+        if (para.isAlphaNumeric()) {
+            sharedQ.enqueue(para.toString());
             // ピリオドやクエスチョンで終わる場合は、文末とみなす
             // 文末の場合は、間を入れる。
-            if (sentence.isEnd()) {
+            if (para.isEnd()) {
                 sharedQ.enqueue("");
             }
             // 再帰呼び出し
@@ -54,7 +54,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
             return;
         }
         // tokenize
-        const kuromojiChunks = tokenizer.tokenize(sentence.toString() + ".");
+        const kuromojiChunks = tokenizer.tokenize(para.toString());
         const chunks = new Chunks(kuromojiChunks.map(c => new Chunk(c)));
         const clauses = chunks.getClauses();
         clauses.forEach(c => {
@@ -80,7 +80,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     });
     // 再帰呼び出し
     function recrusive(l) {
-        if (l < sentences.size() - 1) {
+        if (l < paragraphs.size() - 1) {
             getWords(l + 1);
         } else {
             end = true;
