@@ -1,7 +1,6 @@
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     // 関数間で共有させたい変数たち
     var sharedQ = new Queue();
-    var end = false;
     var interval;
     // make box
     const $container = $("<div>").attr("id", "japritzContainer");
@@ -10,12 +9,10 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     // functions
     function display() {
         if (sharedQ.size() > 0) {
-            // next
             $box.text(sharedQ.dequeue());
-        } else if (end === true && sharedQ.size() == 0) {
-            // Japritz表示の終了処理
-            destroyDisplay();
+            return;
         }
+        destroyDisplay();
     }
     function stopDisplay() {
         clearInterval(interval);
@@ -34,12 +31,13 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
             $(this).remove();
         });
         // 共有変数初期化  多分意味ない。
-        delete sharedQ, interval, end, $container, $box, $close;
+        delete sharedQ, interval, $container, $box, $close;
     }
+    // 最初に間を入れる
+    sharedQ.enqueue("");
     // main
     var paragraphs = new Paragraphs($.selection());
-    var getWords = function (l) {
-        const para = paragraphs.get(l);
+    paragraphs.forEach(para => {
         // tokenize
         const kuromojiChunks = tokenizer.tokenize(para.toString());
         const chunks = new Chunks(kuromojiChunks.map(c => new Chunk(c)));
@@ -50,28 +48,15 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
                 sharedQ.enqueue("");
             }
         });
-        // 再帰呼出し    
-        recrusive(l);
-    }
-    // 最初に間を入れる
-    sharedQ.enqueue("");
-    getWords(0);
+    });
     // add box into dom
     $close.on("click", destroyDisplay);
     $container.append($box);
     $container.append($close);
-    $("body").prepend($container);
+    $("body").append($container);
     $container.fadeIn("slow", function () {
         interval = setInterval(display, speed);
         // stop or restart
         $container.on("click", stopDisplay);
     });
-    // 再帰呼び出し
-    function recrusive(l) {
-        if (l < paragraphs.size() - 1) {
-            getWords(l + 1);
-        } else {
-            end = true;
-        }
-    }
 });

@@ -9,4 +9,7 @@ class Paragraphs {
     size() {
         return this._paragraphs.length;
     }
+    forEach(func) {
+        this._paragraphs.forEach(func);
+    }
 }
