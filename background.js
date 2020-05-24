@@ -6,7 +6,7 @@ function callJapritz(tab) {
 }
 
 // browser button
-chrome.browserAction.onClicked.addListener(function(tab) {
+chrome.browserAction.onClicked.addListener(function (tab) {
 	callJapritz(tab);
 });
 
@@ -14,7 +14,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 chrome.contextMenus.create({
 	"title": "Japritz",
 	"contexts": ["selection"],
-	onclick: function(info, tab) {
+	onclick: function (info, tab) {
 		callJapritz(tab);
 	}
 });

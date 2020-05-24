@@ -1,6 +1,6 @@
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
-    // 関数間で共有させたい変数たち
-    var sharedQ = new Queue();
+    // 関数間共有変数
+    const sharedQ = new Queue();
     var interval;
     // make box
     const $container = $("<div>").attr("id", "japritzContainer");
@@ -16,22 +16,17 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     }
     function stopDisplay() {
         clearInterval(interval);
-        // toggle
         $container.off("click", stopDisplay).on("click", restartDisplay);
     }
     function restartDisplay() {
         interval = setInterval(display, speed);
-        // toggle
         $container.off("click", restartDisplay).on("click", stopDisplay);
     }
     function destroyDisplay() {
-        // interval止める
         clearInterval(interval);
         $container.fadeOut("fast", function () {
             $(this).remove();
         });
-        // 共有変数初期化  多分意味ない。
-        delete sharedQ, interval, $container, $box, $close;
     }
     // 最初に間を入れる
     sharedQ.enqueue("");

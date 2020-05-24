@@ -1,7 +1,5 @@
 class Chunk {
     constructor(kuromojiChunk) {
-        // console.log(kuromojiChunk.surface_form + ":" + kuromojiChunk.pos + ":" + kuromojiChunk.pos_detail_1);
-        console.log(kuromojiChunk);
         this._chunk = kuromojiChunk;
     }
     getSurface() {
