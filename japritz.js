@@ -46,9 +46,10 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
         const clauses = chunks.getClauses();
         clauses.forEach(c => {
             sharedQ.enqueue(c.toString())
+            if (c.isEnd()) {
+                sharedQ.enqueue("");
+            }
         });
-        // 文章に間を設ける
-        sharedQ.enqueue("");
         // 再帰呼出し    
         recrusive(l);
     }

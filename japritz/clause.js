@@ -4,7 +4,7 @@ class Clause {
     }
     isEnd() {
         const last = this._chunkList[this._chunkList.length - 1];
-        return last.match(/[.?!。！？]$/);
+        return last.isEnd();
     }
     toString() {
         return this._chunkList.map(c => c.getSurface()).join('');

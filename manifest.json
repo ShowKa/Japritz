@@ -30,7 +30,6 @@
       "japritz/speed.js",
       "japritz/word.js",
       "japritz/tokenizer.js",
-      "japritz/sentence.js",
       "japritz/Paragraphs.js",
       "japritz/chunk.js",
       "japritz/clause.js",

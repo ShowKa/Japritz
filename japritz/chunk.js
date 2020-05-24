@@ -7,6 +7,9 @@ class Chunk {
     getSurface() {
         return this._chunk.surface_form;
     }
+    isEnd() {
+        return this.getSurface().match(/[。！？]$/);
+    }
     isPunctuation() {
         const s = this.getSurface();
         return $.inArray(s, [",", "，", ".", "、", "。", "/"]) >= 0;
