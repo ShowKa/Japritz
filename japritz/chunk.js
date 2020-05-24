@@ -1,11 +1,12 @@
 class Chunk {
     constructor(kuromojiChunk) {
-        // console.log(kuromojiChunk.surface_form + ":" + kuromojiChunk.pos + ":" + kuromojiChunk.pos_detail_1);
-        console.log(kuromojiChunk);
         this._chunk = kuromojiChunk;
     }
     getSurface() {
         return this._chunk.surface_form;
+    }
+    isEnd() {
+        return this.getSurface().match(/[。！？]$/);
     }
     isPunctuation() {
         const s = this.getSurface();

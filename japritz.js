@@ -1,7 +1,6 @@
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
-    // 関数間で共有させたい変数たち
-    var sharedQ = new Queue();
-    var end = false;
+    // 関数間共有変数
+    const sharedQ = new Queue();
     var interval;
     // make box
     const $container = $("<div>").attr("id", "japritzContainer");
@@ -10,80 +9,49 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     // functions
     function display() {
         if (sharedQ.size() > 0) {
-            // next
             $box.text(sharedQ.dequeue());
-        } else if (end === true && sharedQ.size() == 0) {
-            // Japritz表示の終了処理
-            destroyDisplay();
+            return;
         }
+        destroyDisplay();
     }
     function stopDisplay() {
         clearInterval(interval);
-        // toggle
         $container.off("click", stopDisplay).on("click", restartDisplay);
     }
     function restartDisplay() {
         interval = setInterval(display, speed);
-        // toggle
         $container.off("click", restartDisplay).on("click", stopDisplay);
     }
     function destroyDisplay() {
-        // interval止める
         clearInterval(interval);
         $container.fadeOut("fast", function () {
             $(this).remove();
         });
-        // 共有変数初期化  多分意味ない。
-        delete sharedQ, interval, end, $container, $box, $close;
     }
+    // 最初に間を入れる
+    sharedQ.enqueue("");
     // main
-    var sentences = new Sentences($.selection());
-    var getWords = function (l) {
-        // 半角英数字のみの場合は、APIアクセスは不要。
-        // queueに文字列ぶっこんで、再帰呼び出し。
-        const sentence = sentences.get(l);
-        if (sentence.isAlphaNumeric()) {
-            sharedQ.enqueue(sentence.toString());
-            // ピリオドやクエスチョンで終わる場合は、文末とみなす
-            // 文末の場合は、間を入れる。
-            if (sentence.isEnd()) {
-                sharedQ.enqueue("");
-            }
-            // 再帰呼び出し
-            recrusive(l);
-            return;
-        }
+    var paragraphs = new Paragraphs($.selection());
+    paragraphs.forEach(para => {
         // tokenize
-        const kuromojiChunks = tokenizer.tokenize(sentence.toString() + ".");
+        const kuromojiChunks = tokenizer.tokenize(para.toString());
         const chunks = new Chunks(kuromojiChunks.map(c => new Chunk(c)));
         const clauses = chunks.getClauses();
         clauses.forEach(c => {
             sharedQ.enqueue(c.toString())
+            if (c.isEnd()) {
+                sharedQ.enqueue("");
+            }
         });
-        // 文章に間を設ける
-        sharedQ.enqueue("");
-        // 再帰呼出し    
-        recrusive(l);
-    }
-    // 最初に間を入れる
-    sharedQ.enqueue("");
-    getWords(0);
+    });
     // add box into dom
     $close.on("click", destroyDisplay);
     $container.append($box);
     $container.append($close);
-    $("body").prepend($container);
+    $("body").append($container);
     $container.fadeIn("slow", function () {
         interval = setInterval(display, speed);
         // stop or restart
         $container.on("click", stopDisplay);
     });
-    // 再帰呼び出し
-    function recrusive(l) {
-        if (l < sentences.size() - 1) {
-            getWords(l + 1);
-        } else {
-            end = true;
-        }
-    }
 });

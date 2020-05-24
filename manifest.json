@@ -28,13 +28,11 @@
       "lib/queue.min.js",
       "lib/kuromoji.min.js",
       "japritz/speed.js",
-      "japritz/word.js",
       "japritz/tokenizer.js",
-      "japritz/sentence.js",
-      "japritz/sentences.js",
-      "japritz/chunk.js",
-      "japritz/clause.js",
-      "japritz/chunks.js",
+      "japritz/Chunk.js",
+      "japritz/Chunks.js",
+      "japritz/Clause.js",
+      "japritz/Paragraphs.js",
       "japritz.js"
     ],
     "css": ["css/japritz.css"]

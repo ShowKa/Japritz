@@ -1,8 +1,12 @@
 class Clause {
-    constructor(chunks) {
-        this._chunks = chunks;
+    constructor(chunkList) {
+        this._chunkList = chunkList;
+    }
+    isEnd() {
+        const last = this._chunkList[this._chunkList.length - 1];
+        return last.isEnd();
     }
     toString() {
-        return this._chunks.map(c => c.getSurface()).join('');
+        return this._chunkList.map(c => c.getSurface()).join('');
     }
 }
