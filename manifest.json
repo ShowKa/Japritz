@@ -27,7 +27,6 @@
       "lib/jquery.selection.min.js",
       "lib/queue.min.js",
       "lib/kuromoji.min.js",
-      "japritz/speed.js",
       "japritz/tokenizer.js",
       "japritz/Chunk.js",
       "japritz/Chunks.js",

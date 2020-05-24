@@ -1,5 +1,6 @@
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     // 関数間共有変数
+    const speed = msg.speed;
     const sharedQ = new Queue();
     var interval;
     // make box

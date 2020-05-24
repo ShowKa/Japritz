@@ -1,8 +1,14 @@
 // 起動
 function callJapritz(tab) {
-	chrome.tabs.sendMessage(tab.id, {
-		text: "report_back"
-	}, null);
+	// get option
+	chrome.storage.sync.get({
+		speed: 350
+	}, function (items) {
+		// send
+		chrome.tabs.sendMessage(tab.id, {
+			speed: items.speed
+		}, null);
+	});
 }
 
 // browser button
