@@ -32,7 +32,8 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     // 最初に間を入れる
     sharedQ.enqueue("");
     // main
-    var paragraphs = new Paragraphs($.selection());
+    const selected = window.getSelection().toString();
+    var paragraphs = new Paragraphs(selected);
     paragraphs.forEach(para => {
         // tokenize
         const kuromojiChunks = tokenizer.tokenize(para.toString());
