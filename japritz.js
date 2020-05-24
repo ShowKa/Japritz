@@ -39,20 +39,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     // main
     var paragraphs = new Paragraphs($.selection());
     var getWords = function (l) {
-        // 半角英数字のみの場合は、APIアクセスは不要。
-        // queueに文字列ぶっこんで、再帰呼び出し。
         const para = paragraphs.get(l);
-        if (para.isAlphaNumeric()) {
-            sharedQ.enqueue(para.toString());
-            // ピリオドやクエスチョンで終わる場合は、文末とみなす
-            // 文末の場合は、間を入れる。
-            if (para.isEnd()) {
-                sharedQ.enqueue("");
-            }
-            // 再帰呼び出し
-            recrusive(l);
-            return;
-        }
         // tokenize
         const kuromojiChunks = tokenizer.tokenize(para.toString());
         const chunks = new Chunks(kuromojiChunks.map(c => new Chunk(c)));

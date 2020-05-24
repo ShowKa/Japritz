@@ -1,8 +1,7 @@
-
 class Paragraphs {
     constructor(str) {
         const paragraphs = str.split(/\n/).filter(s => s.length > 0).map(s => s.trim());
-        this._paragraphs = paragraphs.map(p => new Sentence(p));
+        this._paragraphs = paragraphs;
     }
     get(i) {
         return this._paragraphs[i];
