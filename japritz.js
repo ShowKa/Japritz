@@ -4,9 +4,9 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     const sharedQ = new Queue();
     var interval;
     // make box
-    const $container = $("<div>").attr("id", "japritzContainer");
-    const $box = $("<div>").text("Start Japritz");
-    const $close = $("<div>").attr("id", "japritzClose").text("×");
+    const $container = new E("<div>").attr("id", "japritzContainer");
+    const $box = new E("<div>").text("Start Japritz");
+    const $close = new E("<div>").attr("id", "japritzClose").text("×");
     // functions
     function display() {
         if (sharedQ.size() > 0) {
@@ -25,9 +25,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     }
     function destroyDisplay() {
         clearInterval(interval);
-        $container.fadeOut("fast", function () {
-            $(this).remove();
-        });
+        $container.remove();
     }
     // 最初に間を入れる
     sharedQ.enqueue("");
@@ -50,10 +48,8 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     $close.on("click", destroyDisplay);
     $container.append($box);
     $container.append($close);
-    $("body").append($container);
-    $container.fadeIn("slow", function () {
-        interval = setInterval(display, speed);
-        // stop or restart
-        $container.on("click", stopDisplay);
-    });
+    new E("body").prepend($container);
+    // $container.show();
+    $container.on("click", stopDisplay);
+    interval = setInterval(display, speed);
 });
