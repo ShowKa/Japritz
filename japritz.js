@@ -49,7 +49,8 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     $container.append($box);
     $container.append($close);
     new E("body").prepend($container);
-    // $container.show();
-    $container.on("click", stopDisplay);
-    interval = setInterval(display, speed);
+    $container.fadeIn(600, function () {
+        $container.on("click", stopDisplay);
+        interval = setInterval(display, speed);
+    });
 });

@@ -19,6 +19,7 @@
     font-style: normal;
     cursor: pointer;
     box-sizing: content-box;
+    display: none;
 }
 
 #japritzClose {
