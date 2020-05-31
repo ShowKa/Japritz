@@ -25,7 +25,9 @@ chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
     }
     function destroyDisplay() {
         clearInterval(interval);
-        $container.remove();
+        $container.fadeOut(300, function () {
+            $container.remove();
+        });
     }
     // 最初に間を入れる
     sharedQ.enqueue("");
