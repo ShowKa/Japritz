@@ -10,17 +10,18 @@ class Chunk {
     }
     isPunctuation() {
         const s = this.getSurface();
-        return $.inArray(s, [",", "，", ".", "、", "。", "/"]) >= 0;
+        const punctuation = [",", "，", ".", "、", "。", "/"];
+        return punctuation.includes(s);
     }
     isParenthesisStart() {
         const s = this.getSurface();
         const parenthesisStart = ["[", "(", "（", "「"];
-        return $.inArray(s, parenthesisStart) >= 0;
+        return parenthesisStart.includes(s);
     }
     isParenthesisEnd() {
         const s = this.getSurface();
         const parenthesisStart = ["]", "）", ")", "」"];
-        return $.inArray(s, parenthesisStart) >= 0;
+        return parenthesisStart.includes(s);
     }
     isNoun() {
         return this._chunk.pos === "名詞" && !this.isPunctuation();

@@ -12,14 +12,14 @@
     position: fixed;
     top: 30%;
     left: 40%;
-    z-index: 50;
-    display: none;
+    z-index: 1000;
     font-size: 15px;
     font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
     line-height: 16px;
     font-style: normal;
     cursor: pointer;
     box-sizing: content-box;
+    display: none;
 }
 
 #japritzClose {
