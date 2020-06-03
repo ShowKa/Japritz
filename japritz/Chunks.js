@@ -26,7 +26,7 @@ class Chunks {
             // prev
             const prev = (i > 0) ? this.get(i - 1) : null;
             // 名詞(句読点除く)が続く場合、熟語として扱う。
-            // 接頭詞 + 名詞の場合も同様。
+            // 接頭詞 + 名詞の場合も同様。例：お買い物
             // よって文節は区切らない
             if ((chunk.isNoun() || chunk.isPrefix()) && next.isNoun()) {
                 continue;
@@ -36,10 +36,16 @@ class Chunks {
             if (chunk.isPrefix() && next.isVerb()) {
                 continue;
             }
-            // 開き括弧の場合、文節を区切らず次の語とマージする
-            if (chunk.isParenthesisStart()) {
+            // サ変接続名詞 + するの場合、文節は区切らない
+            // 例：発表する
+            if (chunk.isVerbalNoun() && next.isNominalVerb()) {
                 continue;
             }
+            if (chunk.is)
+                // 開き括弧の場合、文節を区切らず次の語とマージする
+                if (chunk.isParenthesisStart()) {
+                    continue;
+                }
             // 接尾動詞が続く場合、文節は区切らない
             if (next.isVerbSuffix()) {
                 continue;

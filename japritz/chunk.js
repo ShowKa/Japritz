@@ -63,6 +63,13 @@ class Chunk {
     isInterjection() {
         return this._chunk.pos === "感動詞";
     }
+    isVerbalNoun() {
+        return this.isNoun() && this._chunk.pos_detail_1 === "サ変接続";
+    }
+    isNominalVerb() {
+        // = する
+        return this._chunk.word_id === 3168980 || this._chunk.word_id === 3168960;
+    }
     isLastOfClause() {
         return this.isPostpositional()
             || this.isConjunction()
