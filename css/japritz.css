@@ -5,6 +5,7 @@
     margin: 0 auto;
     padding-top: 25px;
     border: 2px solid white;
+    border-radius: 4px;
     text-align: center;
     vertical-align: middle;
     min-width: 300px;
