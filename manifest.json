@@ -11,12 +11,19 @@
     "contextMenus",
     "storage"
   ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "addon@example.com",
+      "strict_min_version": "42.0"
+    }
+  },
   "icons": {
     "16": "icon.png",
     "48": "icon.png"
   },
   "background": {
     "scripts": [
+      "lib/kuromoji.min.js",
       "background.js"
     ]
   },
@@ -25,8 +32,6 @@
     "js": [
       "lib/element.js",
       "lib/queue.min.js",
-      "lib/kuromoji.min.js",
-      "japritz/tokenizer.js",
       "japritz/Chunk.js",
       "japritz/Chunks.js",
       "japritz/Clause.js",
