@@ -41,10 +41,10 @@
   "commands": {
     "_execute_browser_action": {
       "suggested_key": {
-        "windows": "Ctrl+Shift+K",
-        "mac": "Command+Shift+K",
-        "chromeos": "Ctrl+Shift+K",
-        "linux": "Ctrl+Shift+K"
+        "windows": "Alt+J",
+        "mac": "Alt+J",
+        "chromeos": "Alt+J",
+        "linux": "Alt+J"
       }
     }
   },
