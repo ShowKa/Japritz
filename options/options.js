@@ -25,7 +25,24 @@ function restore_options() {
 }
 
 function show_speed() {
-    document.getElementById('speed_meter').innerHTML = document.getElementById('speed').value;
+    var e = document.getElementById('speed');
+    var speed = parseInt(e.value);
+    var max = parseInt(e.max);
+    var min = parseInt(e.min);
+    var span = (max - min) / 4
+    var message;
+    if (min <= speed && speed < min + span) {
+        message = "爆速";
+    } else if (min + span <= speed && speed < min + span * 2 ) {
+        message = "速い";
+    } else if (min + span * 2 <= speed && speed < min + span * 3) {
+        message = "普通";
+    } else if (min + span * 3 <= speed && speed <= max) {
+        message = "遅い";
+    } else {
+        message = "　";
+    }
+    document.getElementById('speed_meter').innerHTML = message;
 }
 
 document.addEventListener('DOMContentLoaded', restore_options);
