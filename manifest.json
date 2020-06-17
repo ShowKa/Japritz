@@ -1,11 +1,10 @@
 {
   "name": "Japritz",
-  "version": "2.0",
+  "version": "1.0",
   "manifest_version": 2,
   "description": "Split Japanese Sentences - Powered By kuromoji",
   "browser_action": {
-    "default_icon": "icon.png",
-    "name": "Click!"
+    "default_icon": "icon.png"
   },
   "permissions": [
     "contextMenus",
