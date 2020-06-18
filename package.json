@@ -1,0 +1,27 @@
+{
+  "name": "Japritz",
+  "version": "1.0.0",
+  "description": "WEBページを速読するツール",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/web-ext lint",
+    "start": "./node_modules/.bin/web-ext run",
+    "startnr": "./node_modules/.bin/web-ext run --no-reload --start-url www.mozilla.com",
+    "chrome": "./node_modules/.bin/web-ext run -t chromium",
+    "winchrome": "./node_modules/.bin/web-ext run -t chromium --chromium-binary C:/t/chrome-win/chrome.exe",
+    "build": "./node_modules/.bin/web-ext build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShowKa/Japritz.git"
+  },
+  "author": "ShowKa",
+  "license": "Apache License v2.0",
+  "bugs": {
+    "url": "https://github.com/ShowKa/Japritz/issues"
+  },
+  "homepage": "https://github.com/ShowKa/Japritz#readme",
+  "devDependencies": {
+    "web-ext": "^4.2.0"
+  }
+}
