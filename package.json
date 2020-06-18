@@ -9,7 +9,7 @@
     "startnr": "./node_modules/.bin/web-ext run --no-reload --start-url www.mozilla.com",
     "chrome": "./node_modules/.bin/web-ext run -t chromium",
     "winchrome": "./node_modules/.bin/web-ext run -t chromium --chromium-binary C:/t/chrome-win/chrome.exe",
-    "build": "./node_modules/.bin/web-ext build"
+    "build": "./node_modules/.bin/web-ext build --ignore-files package.json package-lock.json"
   },
   "repository": {
     "type": "git",
