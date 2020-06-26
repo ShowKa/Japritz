@@ -29,6 +29,10 @@ class Chunks {
             if (chunk.isParenthesisStart()) {
                 continue;
             }
+            // 名詞が続く（熟語）の場合、文節は区切らない
+            if (chunk.isNoun() && next.isNoun()) {
+                continue;
+            }
             // 接頭詞 + 名詞の場合、文節は区切らない
             // 例：お買い物
             if (chunk.isPrefix() && next.isNoun()) {
