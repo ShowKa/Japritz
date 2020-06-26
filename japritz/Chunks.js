@@ -25,6 +25,10 @@ class Chunks {
             }
             // prev
             const prev = (i > 0) ? this.get(i - 1) : null;
+            // 開括弧の場合、文節は区切らない
+            if (chunk.isParenthesisStart()) {
+                continue;
+            }
             // 接頭詞 + 名詞の場合、文節は区切らない
             // 例：お買い物
             if (chunk.isPrefix() && next.isNoun()) {
