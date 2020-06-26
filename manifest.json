@@ -1,8 +1,8 @@
 {
-  "name": "Japritz",
-  "version": "1.0",
+  "name": "速読Japritz",
+  "version": "1.1",
   "manifest_version": 2,
-  "description": "Split Japanese Sentences - Powered By kuromoji",
+  "description": "流れるような読書体験を",
   "browser_action": {
     "default_icon": "icon.png"
   },
